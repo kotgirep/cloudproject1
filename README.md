@@ -29,20 +29,17 @@ S3: This will be used to store and manage the files uploaded by user. The storag
 
 S3 - Standard Infrequent Access: S3 allows to specify the lifecycle rules for given s3 bucket, I have configured it max duration for given objects in bucket to stay in this storage class for 75 days.
 
-Transfer Acceleration for S3 Bucket: This allows the bucket for secure and accelerated transfer in terms of the data rates for files.
+Transfer Acceleration for S3 Bucket: This allows fast and secure file transfer between client and s3 bucket.Due to this service file transfer would become easy.
+AWS Glacier for S3 bucket: Glacier is a storage class in S3. I have set an lifecycle rule so that file will move here after 365 days.
 
-AWS Glacier for S3 bucket: Glacier storage class is the cold storage and I have configured the files to move here after 365 days.
+RDS: I have created a RDS instance and used Mysql as a database engine.RDS multi-AZ deployment offers better availability and durability of RDS instance.
 
-DynamoDB: Create a DynamoDB instance for keeping track of the files uploaded by the user and their respective params like description, created and updated time etc.
+CloudFront: I have created ClouFront distribution for sake of sercurely delivering data and it pits content near to user. Here, I set TTL to minimum 30 sec which will reload the cache.
 
-CloudFront: Create a CloudFront (CDN), which will be configured for download of files and setup minimum TTL as 30 sec which will reload the cache.
-
-Route 53: This is the Domain Name Server which is used to resolve the IP address of the application domain.
+Route 53: It is DNS  which is used to resolve the IP address of the application domain.
 
 CloudWatch: This will be used to create monitoring for the auto scaling, ec2, dynamodb etc when the CPU utilization of ec2 instances will reach at high or low threshold and sends the notification via SNS.
 
-Lambda: On any delete events in S3 bucket, it invoked the Lambda function created in nodeJS which will further invoke SNS topic to send notification via email.
-
-SNS: It is the Simple Notification Service for AWS resources which sends email and text messages on the particular top gets the configured events.
-
-Amazon Cognito: Create the userpool for users to sign up or sign in to the application using custom login/signup and social identity providers like google and facebook.
+Lambda: on any update,delete and upload this will invoke lambda function and this lambda function will invoke SNS to send text messages regarding any action in S3 bucket.
+SNS: It is the Simple Notification Service for AWS resources which sends text messages for particular events.
+Amazon Cognito: Create the userpool for users to sign up or sign in to the application using custom login/signup.
