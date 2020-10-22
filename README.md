@@ -19,6 +19,10 @@ Run npm install e NodeJS project to install all the dependencies.
 Create the .env file with AWS access key and secret in NodeJS project
 Run the NodeJS API using DEBUG=myapp:* npm start command.
 
+## Architecture Diagram:
+
+
+
 EC2: 
 
 AutoScaling Group: Configure the auto scaling policy to make the system highly-available and application that can scale to configured max instances with a desired instance of 1 and max instance of 2. You can change these configs anytime in the autoscaling policy based on the Params like CPU Util, network in out, data rates etc.
@@ -38,8 +42,9 @@ CloudFront: I have created ClouFront distribution for sake of sercurely deliveri
 
 Route 53: It is DNS  which is used to resolve the IP address of the application domain.
 
-CloudWatch: This will be used to create monitoring for the auto scaling, ec2, dynamodb etc when the CPU utilization of ec2 instances will reach at high or low threshold and sends the notification via SNS.
+CloudWatch: This will be used to create monitoring for the auto scaling, ec2, the CPU utilization of ec2 instances will reach at high or low threshold and sends the notification via SNS.
 
 Lambda: on any update,delete and upload this will invoke lambda function and this lambda function will invoke SNS to send text messages regarding any action in S3 bucket.
 SNS: It is the Simple Notification Service for AWS resources which sends text messages for particular events.
 Amazon Cognito: Create the userpool for users to sign up or sign in to the application using custom login/signup.
+
