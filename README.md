@@ -8,16 +8,16 @@
 ## AWS services that I used in this project:
 virtual Bucket application is a simple cloud-based web application which would be used for uploading, deleting and downloading the files on the cloud platform. This application leverages different cloud services including Route53, EC2, Cloud Watch, RDS, CloudFront, S3, SNS, load balancing and auto scaling.
 ## Pre-requisites to run this application:
-1.Create AWS account
-2.Create S3 bucket to store files uploaded by users.
-3.create IAM user with security policy.
-4.create MYsql RDS instance and update application.
+#### 1.Create AWS account
+#### 2.Create S3 bucket to store files uploaded by users.
+#### 3.create IAM user with security policy.
+#### 4.create MYsql RDS instance and update application.
 ## Instructions to run project:
-softwares:Node.js,MySql workbench
-Clone the code from git
-Run npm install e NodeJS project to install all the dependencies.
-Create the .env file with AWS access key and secret in NodeJS project
-Run the NodeJS API using DEBUG=myapp:* npm start command.
+#### 1.softwares:Node.js,MySql workbench
+#### 2.Clone the code from git
+#### 3.Run npm install e NodeJS project to install all the dependencies.
+#### 4.Create the .env file with AWS access key and secret in NodeJS project
+#### 5.Run the NodeJS API using DEBUG=myapp:* npm start command.
 
 ## Architecture Diagram:
 
