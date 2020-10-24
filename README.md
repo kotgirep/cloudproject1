@@ -1,6 +1,6 @@
 # Cloudproject1- Virtualbucket
 #### University Name: http://www.sjsu.edu/
-#### course: Cloud Technologies 
+#### Course: Cloud Technologies 
 #### Pofessor:Sanjay Garje
 #### ISA:Indrayani Bhalerao
 #### Student: Pranjali kotgire
