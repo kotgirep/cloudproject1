@@ -20,6 +20,7 @@ virtual Bucket application is a simple cloud-based web application which would b
 #### 5.Run the NodeJS API using DEBUG=myapp:* npm start command.
 
 ## Architecture Diagram:
+![](https://github.com/kotgirep/cloudproject1/blob/main/clouddiagram.png?raw=true "Title")
 
 
 
