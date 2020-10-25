@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <h4 class="text-center">Welcome to virtual bucket</h4>
+    <title><h1>Login</h1></title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
+  </head>
+
+  <body>
+    <section class="container-fluid">
+      <section class="row justify-content-center">
+        <section class="col-12 col-sm-6 col-md-3">
+          <form class="form-container">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input
+                type="email1"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+              />
+              <small id="emailHelp" class="form-text text-muted"
+                >We'll never share your email with anyone else.</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                placeholder="Password"
+              />
+            </div>
+            <div class="form-group form-check">
+              <a href="/users/register">Register here!</a>
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                id="login-button"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+
+          <script>
+            document.getElementById('login-button').addEventListener(
+              'click',
+              function () {
+                var email = document.getElementById('exampleInputEmail1').value;
+                var userpass = document.getElementById('exampleInputPassword1')
+                  .value;
+
+                var xhr = new XMLHttpRequest();
+                var data = new FormData();
+
+                var login_url =
+                  'http://localhost:3000/users/login_user?email=' +
+                  email +
+                  '&pass=' +
+                  userpass;
+
+                xhr.open('GET', login_url, false);
+                xhr.send(null);
+                window.alert('after req sent!');
+                xhr.onreadystatechange = function () {
+                  window.alert(xhr.status);
+                  if (xhr.readyState == 4) {
+                    window.alert(xhr.status);
+                    if (xhr.status == 200) {
+                      var response = eval('(' + xhr.responseText + ')');
+                      //   alert('after 200:: ' + response.Msg);
+                      window.location = 'index1.html';
+                    } else {
+                      //window.alert("not 200");
+                    }
+                  } else {
+                    //window.alert("not 4");
+                  }
+                };
+              },
+              false
+            );
+          </script>
+        </section>
+      </section>
+    </section>
+  </body>
+</html>

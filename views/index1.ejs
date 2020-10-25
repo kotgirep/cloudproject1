@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- <script src="client.js"></script> -->
+    
+    
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <form>
+      <h1>Welcome to virtual bucket</h1>
+      <form class="aws-files" action="" method="">
+        <input
+          type="file"
+          name="fileupload"
+          value="fileupload"
+          id="fileupload"
+        />
+        <label for="fileupload"> </label>
+        <input placeholder="Description" id="fileDescriptionInput"/>
+        <input type="button" value="Upload" id="upload-button"/>
+      </form>
+      <input type="button" value="Logout?" id="Logout-button"/>
+      <script>
+        
+        document.getElementById("upload-button").addEventListener("click",
+            function() {
+              console.log("inside script for upload button !!")
+              console.log("printing descitpiont1:"+document.getElementById("fileDescriptionInput").value);
+              var fileDescription = document.getElementById("fileDescriptionInput").value;      
+              var xhr = new XMLHttpRequest();
+              var data = new FormData();
+        
+        console.log("print the upload file name: "+JSON.stringify(fileupload.value));
+        console.log("printing descitpiont2: "+fileDescription);
+        data.append("inputFile", fileupload.files[0], fileupload.value);
+        var upload_url = "http://localhost:3000/awsfiles/upload_file?name=pranjali&lastName=b&Description="+fileDescription
+        xhr.open("POST", upload_url, false);
+        xhr.onload = // something
+              console.log("sending file from UI !!");
+              console.log("print the upload file name: "+JSON.stringify(fileupload.value));
+              xhr.send(data)
+            },
+            false
+        );
+          </script>
+        
+         <!-- <script>
+            document.getElementById("Delete-button").addEventListener("click",
+            function() {
+              console.log("inside script for download button !!")
+            var xhr = new XMLHttpRequest();
+            var data = new FormData();
+        
+        
+
+        data.append("deleteFile", "contacts_to_import.txt");
+             var delete_url = "http://localhost:3000/awsfiles/delete_file"
+        xhr.open("DELETE", delete_url, false);
+        xhr.onload = // something
+              console.log("Deleting file from UI !!");
+              //console.log("print the Download file name: "+JSON.stringify(fileupload.value));
+              xhr.send(data)
+            },
+            false
+        );//ending code to delete files
+        </script> -->
+        
+    </div>
+    
+    <div class="container">
+      <table class="table table-hover">
+        <thead>
+          <th>userName</th>
+          <th>userLastName</th>
+          <th>fileDescription</th>
+          <th>fileName</th>
+          <th>DateOfUpload</th>
+          <th>DateOfUpdate</th>
+          <th>Download</th>
+          <th>Delete</th>
+        </thead>
+        <tbody id="data">
+        </tbody>
+
+        <tbody>
+    </div>
+          <script>
+            fetch('http://localhost:3000/awsfiles/fetch_files_data').then(
+              (res) => {
+                res.json().then((data) => {
+                  console.log(data.data);
+                  console.log("data length : "+data.length);
+                  // console.log("data.array: "+data.array);
+                  if (data.data.length > 0) {
+                    console.log("data len > 0");
+                    var temp = '';
+                    data.data.forEach((element) => {
+                      temp += '<tr id ="this row data">';
+                      temp += '<td class=nameTd>' + element.userFirstName + '</td>';
+                      temp += '<td class="lastNameTd">' + element.userLastName + '</td>';
+                      temp += '<td class="fileDescTd">' + element.fileDescription + '</td>';
+                      temp += '<td class="fileNameTd">' + element.fileName + '</td>';  
+                      temp += '<td class="dateOfUploadTd">' + element.dateOfUpload + '</td>';  
+                      temp += '<td class="dateOfUpdateTd">' + element.dateOfUpload + '</td>';  
+                      temp += '<td><input type="button" id="Download-button"' +  '" class="downloadButton" value="Download"/></td>';
+                      temp += '<td><input type="button" id="Delete-button"' +  '" class="deleteButton" value="Delete"/></td>';
+                      // temp += '<td><input type="button" id="Delete-button" onclick="doTHis("'+this.getAttribute('fileName')+'")"' +  '" class="btn btn primary" value="Delete"/></td>';
+                      // temp +=<td><button class='ajax_button' data-id='4'>Reserve</button></td>
+
+                      temp += '</tr>';                        
+                    }) 
+                                                   
+                    document.getElementById('data').innerHTML = temp;  //needed          
+
+                    $(".deleteButton").click(function(){
+                      var tr = $(this).closest('tr');
+                      var fileNameTd = tr.find('.fileNameTd').text();
+                      var nameTd = tr.find('.nameTd').text();
+                      var lastNameTd = tr.find('.lastNameTd').text();
+
+                      console.log("file to be deleted:"+fileNameTd+" for user: "+nameTd+ " with last Name: "+lastNameTd);
+                      // alert('fileNameTd: ' + fileNameTd);    
+                      var xhr = new XMLHttpRequest();
+                      var data = new FormData();        
+                      data.append("deleteFile", fileNameTd);
+                      data.append("name",nameTd)
+                      data.append("lastName",lastNameTd)
+                      
+                      var delete_url = "http://localhost:3000/awsfiles/delete_file"
+                      xhr.open("DELETE", delete_url, false);
+                      // xhr.onload = // something
+                      console.log("Deleting file from UI !!");
+                      //console.log("print the Download file name: "+JSON.stringify(fileupload.value));
+                      xhr.send(data)                  
+                    });
+
+                    $(".downloadButton").click(function(){
+                      var tr = $(this).closest('tr');
+                      var fileNameTd = tr.find('.fileNameTd').text();
+                      var nameTd = tr.find('.nameTd').text();
+                      var lastNameTd = tr.find('.lastNameTd').text();
+
+                      console.log("file to be downloaded:"+fileNameTd+" for user: "+nameTd+ " with last Name: "+lastNameTd);
+                      // alert('fileNameTd: ' + fileNameTd);    
+                      var xhr = new XMLHttpRequest();
+                      var data = new FormData();        
+                      // data.append("fileName", fileNameTd);
+                      // data.append("name",nameTd)
+                      // data.append("lastName",lastNameTd)
+                      
+                      var download_url = "http://localhost:3000/awsfiles/download_file?fileName="+fileNameTd;
+                      console.log("downoad URL being called:"+download_url);
+                      xhr.open("GET", download_url, false);
+                      // xhr.onload = // something
+                      console.log("Downloading file from UI !!");
+                      //console.log("print the Download file name: "+JSON.stringify(fileupload.value));
+                      xhr.send(data)                  
+                    });
+                              
+                  }
+                });
+              }
+            );          
+            // res.send({t1: req.session.t1});
+            // console.log("session: "+req.session.t1);
+          </script>
+        </tbody>
+      </table>
+    </form>
+  </body>
+</html>

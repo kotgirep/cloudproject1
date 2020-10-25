@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="jumbotron text-center">
+      <h1>Welcome to virtual bucket</h1>
+      <form action="myform.cgi">
+        <input
+          type="file"
+          name="fileupload"
+          value="fileupload"
+          id="fileupload"
+        />
+        <label for="fileupload"> </label>
+        <input placeholder="Description" />
+        <input type="submit" value="Upload" />
+      </form>
+    </div>
+
+    <div class="table">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">File_name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Delete_file</th>
+            <th scope="col">Download_file</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Delete"
+                />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Download"
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Delete"
+                />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Download"
+                />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Delete"
+                />
+              </div>
+            </td>
+            <td>
+              <div>
+                <input
+                  class="glyphicon glyphicon-trash"
+                  type="submit"
+                  value="Download"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
