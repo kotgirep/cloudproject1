@@ -44,7 +44,8 @@
         console.log("print the upload file name: "+JSON.stringify(fileupload.value));
         console.log("printing descitpiont2: "+fileDescription);
         data.append("inputFile", fileupload.files[0], fileupload.value);
-        var upload_url = "http://localhost:3000/awsfiles/upload_file?name=pranjali&lastName=b&Description="+fileDescription
+        var upload_url = "http://localhost:3000/awsfiles/upload_file?Description="+fileDescription+"&email="+sessionStorage.username;
+        console.log("upload URL:"+upload_url)
         xhr.open("POST", upload_url, false);
         xhr.onload = // something
               console.log("sending file from UI !!");
@@ -53,29 +54,16 @@
             },
             false
         );
-          </script>
-        
-         <!-- <script>
-            document.getElementById("Delete-button").addEventListener("click",
-            function() {
-              console.log("inside script for download button !!")
-            var xhr = new XMLHttpRequest();
-            var data = new FormData();
-        
-        
 
-        data.append("deleteFile", "contacts_to_import.txt");
-             var delete_url = "http://localhost:3000/awsfiles/delete_file"
-        xhr.open("DELETE", delete_url, false);
-        xhr.onload = // something
-              console.log("Deleting file from UI !!");
-              //console.log("print the Download file name: "+JSON.stringify(fileupload.value));
-              xhr.send(data)
-            },
-            false
-        );//ending code to delete files
-        </script> -->
-        
+        document.getElementById("Logout-button").addEventListener("click",
+            function() {
+            alert("logging you out!")
+          	sessionStorage.clear();
+	          location.href='/users/login/';
+	          window.location(location.href);
+        },false);
+
+          </script>        
     </div>
     
     <div class="container">
@@ -96,7 +84,16 @@
         <tbody>
     </div>
           <script>
-            fetch('http://localhost:3000/awsfiles/fetch_files_data').then(
+            alert(sessionStorage.username);
+            var userLoggedIn = sessionStorage.username;
+            if(userLoggedIn == undefined || userLoggedIn =='')
+            {
+              alert("you need to login first !!");
+              window.location="/users/login/"
+            }
+            var fetchURL = 'http://localhost:3000/awsfiles/fetch_files_data?email='+userLoggedIn
+            alert("fetch url: "+fetchURL);
+            fetch(fetchURL).then(
               (res) => {
                 res.json().then((data) => {
                   console.log(data.data);

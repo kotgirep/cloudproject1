@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
 //create login
 
 router.get('/login', (req, res) => {
-  res.render('login1.ejs');
+  res.render('login1.html');
 });
 router.post('/login', (req, res) => {});
 

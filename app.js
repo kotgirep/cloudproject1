@@ -20,7 +20,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // registration
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/awsfiles', awsfileRouter);
 app.use('/dbroutes', dbRouter);
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

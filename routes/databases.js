@@ -35,20 +35,33 @@ var connection = mysql.createConnection({
 // }
 
 function findOrInsertFileUpload(fileMetaData) {
-  console.log('trying to insert the data for file upload action');
-  console.log('user Metadata: ' + JSON.stringify(fileMetaData));
-
-  connection.connect(function (err) {
-    if (err) {
-      console.error('Database connection failed: ' + err.stack);
-      return;
-    }
-    console.log('Connected to database.');
-  });
-
+  console.log('DB operation for file upload!');
   connection.query('use matrix;');
+
+  // var emailIDFilter = fileMetaData.email;
+  // var userNameRetrieved;
+  // var lastNameRetrieved;
+
+  // var userMetaquery =
+  //   'SELECT * from matrixUser where emailAddress = ' +
+  //   "'" +
+  //   emailIDFilter +
+  //   "'";
+
+  // console.log('userMetadata query: ' + userMetaquery);
+
+  // connection.query(userMetaquery, function (err, result) {
+  //   if (err) throw err;
+  //   else {
+  //     var jsonResult = JSON.stringify(result);
+  //     console.log('result of metaquery: ' + jsonResult);
+  //     userNameRetrieved = jsonResult.userName;
+  //     lastNameRetrieved = jsonResult.lastName;
+  //   }
+  // });
+
   var sql =
-    'INSERT INTO userAndFiles(userFirstName, userLastName, dateOfUpload, dateOfUpdate, fileDescription, fileName) values(' +
+    'INSERT INTO userAndFiles(userFirstName, userLastName, dateOfUpload, dateOfUpdate, fileDescription, fileName, userEmail) values(' +
     "'" +
     fileMetaData.userFirstName +
     "','" +
@@ -61,6 +74,8 @@ function findOrInsertFileUpload(fileMetaData) {
     fileMetaData.fileDescription +
     "','" +
     fileMetaData.fileName +
+    "','" +
+    fileMetaData.email +
     "'" +
     ')';
   console.log('printing query:' + sql);
@@ -238,9 +253,13 @@ function getUserAuthHashTwo(userEmailAddress, callback) {
   });
 }
 
-getFilesData = function () {
+getFilesData = function (emailFilter) {
+  var sqlQuery = '';
+  console.log('db qury to fetch files data');
+  if (emailFilter) sqlQuery = 'SELECT * from userAndFiles';
+  else sqlQuery = 'SELECT * from userAndFiles';
   return new Promise(function (resolve, reject) {
-    connection.query('SELECT * from userAndFiles', function (err, rows) {
+    connection.query(sqlQuery, function (err, rows) {
       if (rows === undefined) {
         reject(new Error('Error rows is undefined'));
       } else {

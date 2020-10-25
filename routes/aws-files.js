@@ -35,9 +35,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/upload_file', function (req, res) {
-  userName = req.query.name;
-  lastName = req.query.lastName;
+  email = req.query.email;
   fileDesciptionRec = req.query.Description;
+  if (email == 'aryastark@gmail.com') {
+    userName = 'arya';
+    lastName = 'stark';
+  } else if (email == 'johnsnow@gmail.com') {
+    userName = 'john';
+    lastName = 'snow';
+  }
 
   console.log('fileDescription received at AWS-call : ' + fileDesciptionRec);
 
@@ -45,12 +51,7 @@ router.post('/upload_file', function (req, res) {
     return res.status(400).send('No files were selected for upload!');
   }
 
-  if (
-    req.query.name == null ||
-    req.query.name == '' ||
-    req.query.lastName == null ||
-    req.query.lastName == ''
-  )
+  if (userName == null || userName == '' || lastName == null || lastName == '')
     return res
       .status(400)
       .send(
@@ -76,6 +77,7 @@ router.post('/upload_file', function (req, res) {
     fileDescription: fileDesciptionRec,
     fileName: req.files.inputFile.name,
     dateOfUpload: timeOfUpload,
+    email: email,
   };
 
   const uploadFileParams = {
@@ -219,9 +221,12 @@ router.get('/fetch_files_data', function (req, res) {
   //   return res.status(200).json({ msg: rows });
   //   // res.send(rows);
   // });
-
+  var userEmailToQuery = req.query.email;
+  console.log(
+    'API call to fetch files data with query param email: ' + userEmailToQuery
+  );
   databaseCon
-    .getFilesData()
+    .getFilesData(userEmailToQuery)
     .then(function (results) {
       console.log('data at API end-point call ' + results);
       return res.status(200).json({ data: results });

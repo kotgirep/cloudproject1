@@ -67,26 +67,30 @@
                   '&pass=' +
                   userpass;
 
-                xhr.open('GET', login_url, false);
-                xhr.send(null);
-                window.alert('after req sent!');
                 xhr.onreadystatechange = function () {
-                  window.alert(xhr.status);
+                  // window.alert(xhr.status);
                   if (xhr.readyState == 4) {
-                    window.alert(xhr.status);
+                    // window.alert('xhr status: ' + xhr.status);
                     if (xhr.status == 200) {
-                      var response = eval('(' + xhr.responseText + ')');
-                      //   alert('after 200:: ' + response.Msg);
-                      window.location = 'index1.html';
+                      var responsexhr = eval('(' + xhr.responseText + ')');
+                      // alert('xhr reposnse: ' + JSON.stringify(responsexhr));
+                      sessionStorage.username = email;
+                      let rediretPage = 'register';
+                      // alert('redirecting to:' + rediretPage);
+                      window.location = '/index/';
                     } else {
-                      //window.alert("not 200");
+                      alert('not 200');
+                      window.location = 'regiter.ejs';
                     }
                   } else {
                     //window.alert("not 4");
                   }
                 };
-              },
-              false
+                xhr.open('GET', login_url, true);
+                xhr.send(null);
+                // window.alert('after req sent!');
+              }
+              //   false
             );
           </script>
         </section>
