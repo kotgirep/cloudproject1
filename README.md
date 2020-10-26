@@ -4,6 +4,8 @@
 #### Pofessor:Sanjay Garje
 #### ISA:Indrayani Bhalerao
 #### Student: Pranjali kotgire
+#### Application Url:www.cloudprojectsolutions.net 
+#### Demo:
 
 ## AWS services that I used in this project:
 virtual Bucket application is a simple cloud-based web application which would be used for uploading, deleting and downloading the files on the cloud platform. This application leverages different cloud services including Route53, EC2, Cloud Watch, RDS, CloudFront, S3, SNS, load balancing and auto scaling.
