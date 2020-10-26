@@ -24,6 +24,16 @@ virtual Bucket application is a simple cloud-based web application which would b
 ## Architecture Diagram:
 ![](https://github.com/kotgirep/cloudproject1/blob/main/clouddiagram.png?raw=true "Title")
 
+## Project Screenshots:
+#### 1. LogIn page:
+![]()
+#### 2. Register Page:
+![]()
+#### 3. User Page:
+![]()
+#### 4. Admin Page:
+![]()
+
 
 
 EC2: I have deployed my application on EC2 instance.
