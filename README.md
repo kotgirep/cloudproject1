@@ -32,7 +32,7 @@ virtual Bucket application is a simple cloud-based web application which would b
 #### 3. User Page:
 ![]()
 #### 4. Admin Page:
-![]()
+![](https://github.com/kotgirep/cloudproject1/blob/main/admin.png)
 
 
 
