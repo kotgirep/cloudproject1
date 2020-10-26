@@ -30,7 +30,7 @@ virtual Bucket application is a simple cloud-based web application which would b
 #### 2. Register Page:
 ![](https://github.com/kotgirep/cloudproject1/blob/main/Register.png)
 #### 3. User Page:
-![](https://github.com/kotgirep/cloudproject1/blob/main/user.png)
+![](https://github.com/kotgirep/cloudproject1/blob/main/user.png= 250x250)
 #### 4. Admin Page:
 ![](https://github.com/kotgirep/cloudproject1/blob/main/admin.png)
 
