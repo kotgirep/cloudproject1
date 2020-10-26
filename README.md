@@ -24,9 +24,9 @@ virtual Bucket application is a simple cloud-based web application which would b
 
 
 
-EC2: 
+EC2: I have deployed my application on EC2 instance.
 
-AutoScaling Group: Configure the auto scaling policy to make the system highly-available and application that can scale to configured max instances with a desired instance of 1 and max instance of 2. You can change these configs anytime in the autoscaling policy based on the Params like CPU Util, network in out, data rates etc.
+AutoScaling Group: Configure the auto scaling policy to make the system highly-available and application that can scale to configured max instances with a desired instance . 2. You can change these configs anytime in the autoscaling policy based on the Params like CPU Util, network in out, data rates etc.
 
 Classic Load Balancer: Load balancer transfer request in the round robin fashion to multiple EC2 instances spawned under the target groups.
 
@@ -35,17 +35,15 @@ S3: This will be used to store and manage the files uploaded by user. The storag
 S3 - Standard Infrequent Access: S3 allows to specify the lifecycle rules for given s3 bucket, I have configured it max duration for given objects in bucket to stay in this storage class for 75 days.
 
 Transfer Acceleration for S3 Bucket: This allows fast and secure file transfer between client and s3 bucket.Due to this service file transfer would become easy.
-AWS Glacier for S3 bucket: Glacier is a storage class in S3. I have set an lifecycle rule so that file will move here after 365 days.
+AWS Glacier for S3 bucket: Glacier is a storage class in S3. I have set an lifecycle rule so that file will move to Glacier after 365 days.
 
 RDS: I have created a RDS instance and used Mysql as a database engine.RDS multi-AZ deployment offers better availability and durability of RDS instance.
 
 CloudFront: I have created ClouFront distribution for sake of sercurely delivering data and it pits content near to user. Here, I set TTL to minimum 30 sec which will reload the cache.
 
-Route 53: It is DNS  which is used to resolve the IP address of the application domain.
+Route 53: It is DNS  which is used to resolve the IP address of the application domain.I have choose simple routing policy.
 
 CloudWatch: This will be used to create monitoring for the auto scaling, ec2, the CPU utilization of ec2 instances will reach at high or low threshold and sends the notification via SNS.
 
 Lambda: on any update,delete and upload this will invoke lambda function and this lambda function will invoke SNS to send text messages regarding any action in S3 bucket.
-SNS: It is the Simple Notification Service for AWS resources which sends text messages for particular events.
-Amazon Cognito: Create the userpool for users to sign up or sign in to the application using custom login/signup.
-
+SNS: It is the Simple Notification Service for AWS resources which sends text messages to the user for events when user upload and delete object from S3 bucket.
