@@ -27,9 +27,9 @@
               />
             </div>
             <div class="form-group">
-              <label for="exampleInputName">Username</label>
+              <label for="exampleInputName">Name</label>
               <input
-                type="password"
+                type="text"
                 class="form-control"
                 id="exampleInputName"
                 placeholder="Username"
@@ -38,9 +38,9 @@
             <div class="form-group">
               <label for="exampleInputLastname">Lastname</label>
               <input
-                type="password"
+                type="text"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="exampleInputLastName"
                 placeholder="Lastname"
               />
             </div>
@@ -54,36 +54,62 @@
               />
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Repeat Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-              />
-            </div>
             <a href="/users/login">Login here!</a>
-            <button type="submit" class="btn btn-primary btn-block">
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              id="register-button"
+            >
               Register
             </button>
           </form>
         </section>
       </section>
     </section>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
+    <script>
+      document.getElementById('register-button').addEventListener(
+        'click',
+        function () {
+          var name = document.getElementById('exampleInputName').value;
+          var lastName = document.getElementById('exampleInputLastName').value;
+          var email = document.getElementById('exampleInputEmail1').value;
+          var userpass = document.getElementById('exampleInputPassword1').value;
+
+          var xhr = new XMLHttpRequest();
+          var data = new FormData();
+
+          var registeration_url =
+            'http://localhost:3000/users/register_user?name=' +
+            name +
+            '&lastName=' +
+            lastName+
+            '&email=' +
+            email+
+            '&userPass=' +
+            userpass;
+
+          xhr.onreadystatechange = function () {
+            // window.alert(xhr.status);
+            if (xhr.readyState == 4) {
+              // window.alert('xhr status: ' + xhr.status);
+              if (xhr.status == 200) {
+                var responsexhr = eval('(' + xhr.responseText + ')');
+                alert('User registeration sucessful !');
+                window.location = '/users/login/';
+              } else {
+                alert('not 200');
+                window.location = '/users/login/';
+              }
+            } else {
+              //window.alert("not 4");
+            }
+          };
+          xhr.open('POST', registeration_url, true);
+          xhr.send(null);
+          // window.alert('after req sent!');
+        }
+        //   false
+      );
+    </script>
   </body>
 </html>

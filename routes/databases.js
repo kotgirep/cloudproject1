@@ -153,6 +153,38 @@ function registerNewUser(newUserData) {
   });
 }
 
+registerNewUserTwo = function (newUserData) {
+  // console.log('database function to register a new user !!');
+  // console.log('new user Metadata: ' + JSON.stringify(newUserData));
+
+  var insertUserQuery =
+    'INSERT INTO matrixUser(userName, lastName, emailAddress, hashOfSecret) values(' +
+    "'" +
+    newUserData.userFirstName +
+    "','" +
+    newUserData.userLastName +
+    "','" +
+    newUserData.userEmailAddress +
+    "','" +
+    newUserData.userPass +
+    "'" +
+    ')';
+
+  console.log('printing query:' + insertUserQuery);
+
+  // console.log('printing query: ' + userMetaquery);
+  return new Promise(function (resolve, reject) {
+    connection.query(insertUserQuery, function (err, rows) {
+      if (rows === undefined) {
+        reject(new Error('Error results is undefined'));
+      } else {
+        // console.log('data insertion result: ' + JSON.stringify(rows));
+        resolve(rows);
+      }
+    });
+  });
+};
+
 // fetching data from database
 function fetchFileFromDatabase() {
   console.log('trying to fetch data from database');
@@ -256,8 +288,12 @@ function getUserAuthHashTwo(userEmailAddress, callback) {
 getFilesData = function (emailFilter) {
   var sqlQuery = '';
   console.log('db qury to fetch files data');
-  if (emailFilter) sqlQuery = 'SELECT * from userAndFiles';
+  console.log('emailFilter:  ' + emailFilter);
+  if (emailFilter != undefined)
+    sqlQuery =
+      'SELECT * from userAndFiles where userEmail = ' + "'" + emailFilter + "'";
   else sqlQuery = 'SELECT * from userAndFiles';
+  console.log('sql query for this fetch files= ' + sqlQuery);
   return new Promise(function (resolve, reject) {
     connection.query(sqlQuery, function (err, rows) {
       if (rows === undefined) {
@@ -281,3 +317,4 @@ module.exports.getFilesData = getFilesData;
 module.exports.getUserAuthHash = getUserAuthHash;
 module.exports.getUserAuthHashTwo = getUserAuthHashTwo;
 module.exports.doUserAuthentication = doUserAuthentication;
+module.exports.registerNewUserTwo = registerNewUserTwo;

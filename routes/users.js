@@ -16,7 +16,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {});
 
 router.get('/register', (req, res) => {
-  res.render('register.ejs');
+  res.render('register.html');
 });
 
 router.post('/register_user', function (req, res) {
@@ -41,16 +41,27 @@ router.post('/register_user', function (req, res) {
         'Please provide all required parameters needed for user registeration !!'
       );
 
-  var userPassHash = crypto.createHash('md5').update(userPass).digest('hex');
-  console.log('user password hash is:' + userPassHash);
+  // var userPassHash = crypto.createHash('md5').update(userPass).digest('hex');
+  // console.log('user password hash is:' + userPassHash);
 
   const uploadMetadata = {
     userFirstName: userName,
     userLastName: lastName,
     userEmailAddress: emailAddress,
-    userPass: userPassHash,
+    userPass: userPass,
   };
-  databaseCon.registerNewUser(uploadMetadata);
+
+  databaseCon
+    .registerNewUserTwo(uploadMetadata)
+    .then(function (results) {
+      if (results.affectedRows == 1) {
+        // console.log('db call confirms user registeration');
+        return res.status(200).json({ Msg: 'success' });
+      } else return res.status(403).json({ msg: 'user registeration has failed !!' });
+    })
+    .catch(function (err) {
+      console.log('Promise rejection error: ' + err);
+    });
 });
 
 router.get('/userMetadata', function (req, res) {
@@ -76,7 +87,7 @@ router.get('/userMetadata', function (req, res) {
 router.get('/login_user', function (req, res) {
   emailAddress = req.query.email;
   userPass = req.query.pass;
-  console.log('API call to login an existing user');
+  // console.log('API call to login an existing user');
   if (
     req.query.email == null ||
     req.query.email == '' ||
@@ -88,11 +99,12 @@ router.get('/login_user', function (req, res) {
       .send(
         'Please provide all required parameters needed for getting userMetadata !!'
       );
-  var userPassHash = crypto.createHash('md5').update(userPass).digest('hex');
+
+  // var userPassHash = crypto.createHash('md5').update(userPass).digest('hex');
   // console.log('user password hash is:' + userPassHash);
 
   databaseCon
-    .doUserAuthentication(emailAddress, userPassHash)
+    .doUserAuthentication(emailAddress, userPass)
     .then(function (results) {
       // console.log('data at API end-point call ' + results);
       // console.log('data at API length ' + results.length);

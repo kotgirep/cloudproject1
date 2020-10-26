@@ -37,26 +37,25 @@ router.get('/', function (req, res, next) {
 router.post('/upload_file', function (req, res) {
   email = req.query.email;
   fileDesciptionRec = req.query.Description;
-  if (email == 'aryastark@gmail.com') {
-    userName = 'arya';
-    lastName = 'stark';
-  } else if (email == 'johnsnow@gmail.com') {
-    userName = 'john';
-    lastName = 'snow';
-  }
+
+  fullName = email.split('@')[0];
+  userName = fullName.split('.')[0];
+  lastName = fullName.split('.')[1];
 
   console.log('fileDescription received at AWS-call : ' + fileDesciptionRec);
+  console.log('name & last name : ' + userName);
+  console.log('name & last name : ' + lastName);
 
   if (!req.files) {
     return res.status(400).send('No files were selected for upload!');
   }
 
-  if (userName == null || userName == '' || lastName == null || lastName == '')
-    return res
-      .status(400)
-      .send(
-        'Please provide all required parameters needed for the file upload !!'
-      );
+  // if (userName == null || userName == '' || lastName == null || lastName == '')
+  //   return res
+  //     .status(400)
+  //     .send(
+  //       'Please provide all required parameters needed for the file upload !!'
+  //     );
 
   if (req.query.Description == null || req.query.Description == '') {
     fileDescription = req.files.inputFile.name;
@@ -173,7 +172,7 @@ router.get('/list_files', function (req, res) {
 router.get('/download_file', function (req, res) {
   var fileForDownload = req.query.fileName;
 
-  console.log('file name provided for download: ' + fileForDownload);
+  // console.log('file name provided for download: ' + fileForDownload);
   // console.log('file name provided for download: ' + req.query.fileName);
   var params = {
     Bucket: 'cmpe281cloudproject1' /* required */,
@@ -187,8 +186,8 @@ router.get('/download_file', function (req, res) {
     if (err) console.log(err, err.stack);
     // an error occurred
     else {
-      console.log("here's the file data type: " + data.ContentType); // successful response
-      console.log("here's the file LastModified date: " + data.LastModified); // successful response
+      // console.log("here's the file data type: " + data.ContentType); // successful response
+      // console.log("here's the file LastModified date: " + data.LastModified); // successful response
       // sendSNSMessage('file downloaded sucessfully ');
       return res.status(200).json({ msg: data });
     }

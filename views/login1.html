@@ -67,6 +67,11 @@
                   '&pass=' +
                   userpass;
 
+                // User role specific routing (admin & non-admin)
+                var landingPage = '/index/';
+                if (email === 'pranjali.b@gmail.com') landingPage = '/index/';
+                else landingPage = '/indexnonadmin/';
+
                 xhr.onreadystatechange = function () {
                   // window.alert(xhr.status);
                   if (xhr.readyState == 4) {
@@ -77,7 +82,7 @@
                       sessionStorage.username = email;
                       let rediretPage = 'register';
                       // alert('redirecting to:' + rediretPage);
-                      window.location = '/index/';
+                      window.location = landingPage;
                     } else {
                       alert('not 200');
                       window.location = 'regiter.ejs';

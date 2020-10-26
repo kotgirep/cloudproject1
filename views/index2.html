@@ -18,8 +18,7 @@
   <body>
     <div class="jumbotron text-center">
       <form>
-      <h1 id = "welcome-header">Welcome to virtual bucket</h1>
-
+      <h1>Welcome to virtual bucket</h1>
       <form class="aws-files" action="" method="">
         <input
           type="file"
@@ -70,8 +69,6 @@
     <div class="container">
       <table class="table table-hover">
         <thead>
-          <th>userName</th>
-          <th>userLastName</th>
           <th>fileDescription</th>
           <th>fileName</th>
           <th>DateOfUpload</th>
@@ -92,8 +89,8 @@
               alert("you need to login first !!");
               window.location="/users/login/"
             }
-            var fetchURL = 'http://localhost:3000/awsfiles/fetch_files_data'
-            alert("fetch url: "+fetchURL);
+            var fetchURL = 'http://localhost:3000/awsfiles/fetch_files_data?email='+userLoggedIn
+            // alert("fetch url: "+fetchURL);
             fetch(fetchURL).then(
               (res) => {
                 res.json().then((data) => {
@@ -105,8 +102,6 @@
                     var temp = '';
                     data.data.forEach((element) => {
                       temp += '<tr id ="this row data">';
-                      temp += '<td class=nameTd>' + element.userFirstName + '</td>';
-                      temp += '<td class="lastNameTd">' + element.userLastName + '</td>';
                       temp += '<td class="fileDescTd">' + element.fileDescription + '</td>';
                       temp += '<td class="fileNameTd">' + element.fileName + '</td>';  
                       temp += '<td class="dateOfUploadTd">' + element.dateOfUpload + '</td>';  
@@ -118,9 +113,8 @@
 
                       temp += '</tr>';                        
                     }) 
-                     
+                                                   
                     document.getElementById('data').innerHTML = temp;  //needed          
-                    
 
                     $(".deleteButton").click(function(){
                       var tr = $(this).closest('tr');
@@ -132,9 +126,14 @@
                       // alert('fileNameTd: ' + fileNameTd);    
                       var xhr = new XMLHttpRequest();
                       var data = new FormData();        
+                      fullName = userLoggedIn.split('@')[0];
+                      userName = fullName.split('.')[0];
+                      lastName = fullName.split('.')[1];
+
                       data.append("deleteFile", fileNameTd);
-                      data.append("name",nameTd)
-                      data.append("lastName",lastNameTd)
+                      data.append("name",userName)
+                      data.append("lastName",lastName)
+
                       
                       var delete_url = "http://localhost:3000/awsfiles/delete_file"
                       xhr.open("DELETE", delete_url, false);
@@ -147,14 +146,10 @@
                     $(".downloadButton").click(function(){
                       var tr = $(this).closest('tr');
                       var fileNameTd = tr.find('.fileNameTd').text();
-
-                      console.log("file to be downloaded:"+fileNameTd);
+                      // console.log("file to be downloaded:"+fileNameTd+" for user: "+nameTd+ " with last Name: "+lastNameTd);
                       // alert('fileNameTd: ' + fileNameTd);    
                       var xhr = new XMLHttpRequest();
-                      var data = new FormData();        
-                      // data.append("fileName", fileNameTd);
-                      // data.append("name",nameTd)
-                      // data.append("lastName",lastNameTd)
+                      var data = new FormData();
                       
                       var download_url = "http://localhost:3000/awsfiles/download_file?fileName="+fileNameTd;
                       console.log("downoad URL being called:"+download_url);
@@ -162,7 +157,7 @@
                       // xhr.onload = // something
                       console.log("Downloading file from UI !!");
                       //console.log("print the Download file name: "+JSON.stringify(fileupload.value));
-                      xhr.send(data)                  
+                      xhr.send(null)                  
                     });
                               
                   }

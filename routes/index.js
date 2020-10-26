@@ -7,4 +7,9 @@ router.get('/index', function (req, res, next) {
   res.render('index1', { title: 'Express' });
 });
 
+router.get('/indexnonadmin', function (req, res, next) {
+  // console.log('session: ' + req.session.t1);
+  res.render('index2', { title: 'Express' });
+});
+
 module.exports = router;
